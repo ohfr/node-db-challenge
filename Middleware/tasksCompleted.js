@@ -4,6 +4,7 @@ const convertCompletedAll = () => {
     return async(req, res, next) => {
         try {
             let data = await db.find();
+
             let mapped = data.map(cur => {
                 if (cur.completed > 1) {
                     cur.completed = true;
@@ -13,10 +14,10 @@ const convertCompletedAll = () => {
                 return cur;
             })
             if (mapped) {
-                req.tasks = mapped;
+                req.allTasks = mapped;
                 next();
             }
-        }catch(err) {
+        } catch(err) {
             return res.status(500).json({message: "Something went wrong"});
         };
     };

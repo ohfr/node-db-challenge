@@ -8,18 +8,17 @@ const db = require("../data/dbHelpers/tasks");
 
 const { convertCompleted, convertCompletedAll, convertCompletedProjectTask } = require("../Middleware/tasksCompleted");
 
-router.get("/:task_id", convertCompleted(), async (req, res, next) => {
+router.get("/all", convertCompletedAll(), async (req, res, next) => {
     try {
-        res.json(req.task);
+        res.json(req.allTasks);
     } catch(err) {
         next(err);
     };
 });
 
-//doesnt do anything for whatever reason ?
-router.get("/all", convertCompletedAll(), async (req, res, next) => {
+router.get("/:task_id", convertCompleted(), async (req, res, next) => {
     try {
-        res.json(req.tasks);
+        res.json(req.task);
     } catch(err) {
         next(err);
     };
